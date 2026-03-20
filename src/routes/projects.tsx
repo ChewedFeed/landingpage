@@ -23,6 +23,9 @@ function getProgressColor(progress: number): string {
 
 function ProjectCard({ project }: { project: Project }) {
 	const searchName = project.searchName;
+	const isActive = project.status === "active";
+	const isRetired = project.status === "retired";
+	const isDropped = project.status === "dropped";
 
 	return (
 		<Link
@@ -32,9 +35,17 @@ function ProjectCard({ project }: { project: Project }) {
 		>
 			<div className="mb-3 flex items-center justify-between">
 				<i className={`fa-${project.icon} text-2xl text-brand-500`} />
-				{project.launched ? (
+				{isActive ? (
 					<span className="text-xs font-medium text-brand-600 bg-brand-100 px-2 py-0.5 rounded-full">
 						Live
+					</span>
+				) : isRetired ? (
+					<span className="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
+						Retired
+					</span>
+				) : isDropped ? (
+					<span className="text-xs font-medium text-rose-600 bg-rose-100 px-2 py-0.5 rounded-full">
+						Dropped
 					</span>
 				) : (
 					<span className="text-xs font-medium text-(--color-text-muted)">
@@ -46,7 +57,7 @@ function ProjectCard({ project }: { project: Project }) {
 			<p className="text-sm text-(--color-text-muted) mb-3">
 				{project.description}
 			</p>
-			{!project.launched && (
+			{!isActive && !isRetired && !isDropped && (
 				<div className="w-full bg-(--color-border) rounded-full h-1.5">
 					<div
 						className={`h-1.5 rounded-full ${getProgressColor(project.progress)}`}
@@ -88,8 +99,13 @@ function ProjectsPage() {
 		return <Outlet />;
 	}
 
-	const launched = projects.filter((p) => p.launched);
-	const inProgress = projects.filter((p) => !p.launched);
+	const launched = projects.filter((p) => p.status === "active");
+	const inProgress = projects.filter(
+		(p) =>
+			p.status !== "active" && p.status !== "retired" && p.status !== "dropped",
+	);
+	const retired = projects.filter((p) => p.status === "retired");
+	const dropped = projects.filter((p) => p.status === "dropped");
 
 	return (
 		<div className="py-16">
@@ -115,6 +131,28 @@ function ProjectsPage() {
 						<h2 className="text-xl font-semibold mb-6">In Progress</h2>
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 							{inProgress.map((project) => (
+								<ProjectCard key={project.name} project={project} />
+							))}
+						</div>
+					</section>
+				)}
+
+				{retired.length > 0 && (
+					<section className="mt-12">
+						<h2 className="text-xl font-semibold mb-6">Retired</h2>
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+							{retired.map((project) => (
+								<ProjectCard key={project.name} project={project} />
+							))}
+						</div>
+					</section>
+				)}
+
+				{dropped.length > 0 && (
+					<section className="mt-12">
+						<h2 className="text-xl font-semibold mb-6">Dropped</h2>
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+							{dropped.map((project) => (
 								<ProjectCard key={project.name} project={project} />
 							))}
 						</div>
