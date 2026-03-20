@@ -5,6 +5,7 @@ export default function Header() {
 		<header className="sticky top-0 z-50 border-b border-(--color-border) bg-(--color-surface)/80 backdrop-blur-md">
 			<div className="page-wrap flex h-16 items-center justify-between">
 				<Link to="/" className="flex items-center gap-2 font-bold text-xl">
+					<img src="/logo.png" alt="ChewedFeed" className="h-8 w-8" />
 					ChewedFeed
 				</Link>
 				<nav className="flex items-center gap-6 text-sm">
