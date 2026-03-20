@@ -1,6 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { fetchProjects } from "#/lib/api";
+import {
+	createFileRoute,
+	Link,
+	Outlet,
+	useRouterState,
+} from "@tanstack/react-router";
 import type { Project } from "#/lib/api";
+import { fetchProjects } from "#/lib/api";
+
+export function isProjectsIndexPath(pathname: string): boolean {
+	return pathname === "/projects";
+}
 
 function getProgressColor(progress: number): string {
 	if (progress >= 91) return "progress-green";
@@ -71,6 +80,13 @@ export const Route = createFileRoute("/projects")({
 
 function ProjectsPage() {
 	const { projects } = Route.useLoaderData();
+	const pathname = useRouterState({
+		select: (state) => state.location.pathname,
+	});
+
+	if (!isProjectsIndexPath(pathname)) {
+		return <Outlet />;
+	}
 
 	const launched = projects.filter((p) => p.launched);
 	const inProgress = projects.filter((p) => !p.launched);

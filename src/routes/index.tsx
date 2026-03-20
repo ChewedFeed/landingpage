@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { fetchProjects } from "#/lib/api";
 import type { Project } from "#/lib/api";
+import { fetchProjects } from "#/lib/api";
 
 function getProgressColor(progress: number): string {
 	if (progress >= 91) return "progress-green";
