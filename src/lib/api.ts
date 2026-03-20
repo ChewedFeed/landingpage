@@ -27,6 +27,7 @@ export type Project = {
 	name: string;
 	searchName: string;
 	description: string;
+	status: string;
 	url: string;
 	launchDate: LaunchDate;
 	progress: number;
