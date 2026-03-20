@@ -20,9 +20,9 @@ function CookiesPage() {
 						efficiently and to provide information to the owners of the site.
 					</p>
 					<p>
-						We use cookies to understand how you use our site and to improve your
-						experience. This includes personalizing content and remembering your
-						preferences.
+						We use cookies to understand how you use our site and to improve
+						your experience. This includes personalizing content and remembering
+						your preferences.
 					</p>
 				</div>
 			</div>
