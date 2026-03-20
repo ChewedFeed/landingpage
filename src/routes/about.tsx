@@ -45,9 +45,7 @@ function AboutPage() {
 						</p>
 					</div>
 					<div className="rounded-xl border border-(--color-border) p-6">
-						<h3 className="font-semibold mb-2">
-							Upgrades shouldn't be scary
-						</h3>
+						<h3 className="font-semibold mb-2">Upgrades shouldn't be scary</h3>
 						<p className="text-sm text-(--color-text-muted)">
 							You should be able to choose when and how often to upgrade without
 							worry that it's going to take down everything.
