@@ -101,7 +101,8 @@ function ProjectsPage() {
 
 	const launched = projects.filter((p) => p.status === "active");
 	const inProgress = projects.filter(
-		(p) => p.status !== "active" && p.status !== "retired" && p.status !== "dropped",
+		(p) =>
+			p.status !== "active" && p.status !== "retired" && p.status !== "dropped",
 	);
 	const retired = projects.filter((p) => p.status === "retired");
 	const dropped = projects.filter((p) => p.status === "dropped");
