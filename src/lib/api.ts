@@ -25,6 +25,7 @@ export type LaunchDate = {
 
 export type Project = {
 	name: string;
+	searchName: string;
 	description: string;
 	url: string;
 	launchDate: LaunchDate;

@@ -13,7 +13,7 @@ function getProgressColor(progress: number): string {
 }
 
 function ProjectCard({ project }: { project: Project }) {
-	const searchName = project.name.toLowerCase().replace(/\s+/g, "-");
+	const searchName = project.searchName;
 
 	return (
 		<Link
