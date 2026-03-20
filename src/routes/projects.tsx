@@ -1,11 +1,11 @@
-import type { Project } from "#/lib/api";
-import { fetchProjects } from "#/lib/api";
 import {
+	createFileRoute,
 	Link,
 	Outlet,
-	createFileRoute,
 	useRouterState,
 } from "@tanstack/react-router";
+import type { Project } from "#/lib/api";
+import { fetchProjects } from "#/lib/api";
 
 export function isProjectsIndexPath(pathname: string): boolean {
 	return pathname === "/projects";
