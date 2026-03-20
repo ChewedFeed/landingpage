@@ -9,11 +9,15 @@ export type ProjectLink = {
 	label?: string;
 };
 
-export type RoadmapItem = {
-	name: string;
+export type Milestone = {
+	id?: number;
+	serviceId?: number;
+	title: string;
+	description?: string;
+	category: string;
+	status: string;
 	targetDate?: string;
-	releaseDate?: string;
-	completed: boolean;
+	completedDate?: string;
 	sortOrder: number;
 };
 
@@ -37,7 +41,7 @@ export type Project = {
 	uptime: string;
 	launched: boolean;
 	links?: ProjectLink[];
-	roadmap?: RoadmapItem[];
+	milestones?: Milestone[];
 };
 
 export async function fetchProjects(): Promise<Project[]> {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type { Project, ProjectLink, RoadmapItem } from "./api";
+import type { Milestone, Project, ProjectLink } from "./api";
 
 describe("API types", () => {
 	test("Project type has expected fields", () => {
@@ -23,24 +23,30 @@ describe("API types", () => {
 				},
 				{ type: "docs", url: "https://docs.flags.gg", label: "Docs" },
 			],
-			roadmap: [
+			milestones: [
 				{
-					name: "Alpha",
-					completed: true,
+					title: "Alpha",
+					category: "feature",
+					status: "completed",
 					sortOrder: 0,
 					targetDate: "2025-01-01",
-					releaseDate: "2025-01-15",
+					completedDate: "2025-01-15",
 				},
-				{ name: "Beta", completed: false, sortOrder: 1 },
+				{
+					title: "Beta",
+					category: "release",
+					status: "planned",
+					sortOrder: 1,
+				},
 			],
 		};
 
 		expect(project.name).toBe("Flags.gg");
 		expect(project.launched).toBe(true);
 		expect(project.links).toHaveLength(3);
-		expect(project.roadmap).toHaveLength(2);
+		expect(project.milestones).toHaveLength(2);
 		expect(project.links?.[1].type).toBe("dashboard");
-		expect(project.roadmap?.[0].completed).toBe(true);
+		expect(project.milestones?.[0].status).toBe("completed");
 	});
 
 	test("ProjectLink type structure", () => {
@@ -54,16 +60,17 @@ describe("API types", () => {
 		expect(link.url).toContain("docs.flags.gg");
 	});
 
-	test("RoadmapItem with optional dates", () => {
-		const item: RoadmapItem = {
-			name: "Public release",
-			completed: false,
+	test("Milestone with optional dates", () => {
+		const item: Milestone = {
+			title: "Public release",
+			category: "release",
+			status: "planned",
 			sortOrder: 2,
 		};
 
 		expect(item.targetDate).toBeUndefined();
-		expect(item.releaseDate).toBeUndefined();
-		expect(item.completed).toBe(false);
+		expect(item.completedDate).toBeUndefined();
+		expect(item.status).toBe("planned");
 	});
 
 	test("LaunchDate zero month handling", () => {
@@ -80,8 +87,7 @@ describe("API types", () => {
 			launched: false,
 		};
 
-		const month =
-			project.launchDate.month === 0 ? 1 : project.launchDate.month;
+		const month = project.launchDate.month === 0 ? 1 : project.launchDate.month;
 		expect(month).toBe(1);
 	});
 });
